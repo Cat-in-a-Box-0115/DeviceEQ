@@ -13,3 +13,5 @@ jobs:
         run: ./Tests/verify.sh
       - name: Check C++/Objective-C++ formatting
         run: xcrun clang-format --dry-run --Werror Sources/Audio/AudioBridge.mm Sources/DSP/DSP.cpp
+      - name: Universal build (Intel slice compiles; not yet hardware-qualified)
+        run: ARCHS="arm64 x86_64" ./build.sh && lipo -archs build.noindex/DeviceEQ.app/Contents/MacOS/DeviceEQ

@@ -5,7 +5,7 @@ DeviceEQ stays a **lightweight, audio-only parametric EQ**. Per-app mixing, volu
 ## Next
 - Developer ID signing and notarization, then regular (non-pre-release) downloads, a DMG and a Homebrew cask
 - Screenshots and a short demo GIF in the README
-- Universal (Intel + Apple Silicon) build, if testing hardware is available
+- Universal (Intel + Apple Silicon) builds: `ARCHS="arm64 x86_64" ./build.sh` works and the DSP/model tests pass under Rosetta; needs testing on a real Intel Mac before release
 
 ## Qualification (needs real hardware)
 - Manual checks of graph dragging and band deselection
