@@ -24,6 +24,7 @@ mkdir -p "$STAGE/DeviceEQ"
 COPYFILE_DISABLE=1 tar -C "$ROOT" --exclude='.DS_Store' --exclude='Tests/Audio/Evidence' \
   -cf - Sources Assets Scripts Tests .github .gitignore LICENSE README.md \
   CHANGELOG.md RELEASE_CHECKLIST.md ARCHITECTURE.md CONTRIBUTING.md PRIVACY.md RELEASING.md \
+  SECURITY.md ROADMAP.md docs .clang-format \
   THIRD_PARTY_NOTICES.md VERIFICATION.md build.sh install.sh uninstall.sh \
   | tar -C "$STAGE/DeviceEQ" -xf -
 ditto -c -k --keepParent "$STAGE/DeviceEQ" "$DEST/DeviceEQ-$VERSION-source.zip"

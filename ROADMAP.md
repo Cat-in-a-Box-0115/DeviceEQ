@@ -1,0 +1,16 @@
+# Roadmap
+
+DeviceEQ stays a **lightweight, audio-only parametric EQ**. Per-app mixing, volume boost, spatial effects and networking are deliberately out of scope.
+
+## Next
+- Developer ID signing and notarization, then regular (non-pre-release) downloads, a DMG and a Homebrew cask
+- Screenshots and a short demo GIF in the README
+- Universal (Intel + Apple Silicon) build, if testing hardware is available
+
+## Qualification (needs real hardware)
+- Manual checks of graph dragging and band deselection
+- Idle/active CPU and memory with realistic band counts
+- Sleep/wake, sample-rate changes, Bluetooth reconnects, USB DACs
+
+## Good first issues
+See the issues labelled `good first issue`.

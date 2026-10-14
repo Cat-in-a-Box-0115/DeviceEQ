@@ -1,5 +1,20 @@
 # Release procedure
 
+## One-time notarization setup (maintainer, about 10 minutes)
+
+You need a paid Apple Developer Program membership. These steps use your own Apple credentials, so run them yourself; never paste passwords or certificates into issues, chats or the repository.
+
+1. In Xcode → Settings → Accounts, add your Apple ID, then **Manage Certificates → + → Developer ID Application**. Confirm it with `security find-identity -v -p codesigning` and note the full name, e.g. `Developer ID Application: Your Name (TEAMID)`.
+2. Create an app-specific password at https://account.apple.com (Sign-In and Security → App-Specific Passwords).
+3. Store notarization credentials in your keychain once:
+   ```sh
+   xcrun notarytool store-credentials deviceeq-notary --apple-id YOU@EXAMPLE.COM --team-id TEAMID
+   ```
+   It prompts for the app-specific password and saves it under the profile name `deviceeq-notary`.
+4. Each release then uses `SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" ./build.sh` and `--keychain-profile deviceeq-notary` in step 3 below.
+
+## Each release
+
 The repository can be published as source. An official macOS download should be signed and notarized by its maintainer before being called a signed release.
 
 1. Update the version in `build.sh` and changelog. Run `./build.sh` and `./Tests/verify.sh` on a clean Apple Silicon Mac.

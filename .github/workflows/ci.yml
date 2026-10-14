@@ -11,3 +11,5 @@ jobs:
         run: ./build.sh
       - name: Verify DSP and imports
         run: ./Tests/verify.sh
+      - name: Check C++/Objective-C++ formatting
+        run: xcrun clang-format --dry-run --Werror Sources/Audio/AudioBridge.mm Sources/DSP/DSP.cpp
