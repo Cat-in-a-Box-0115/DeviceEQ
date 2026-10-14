@@ -25,4 +25,4 @@ With EQ on and music playing:
 5. Quit and relaunch DeviceEQ: each output's EQ state is restored.
 
 ## Before each public release
-Follow [RELEASE_CHECKLIST.md](../RELEASE_CHECKLIST.md), then `./Scripts/notarize-release.sh` (see [RELEASING.md](../RELEASING.md)).
+Follow [RELEASE_CHECKLIST.md](../RELEASE_CHECKLIST.md), then package as described in [RELEASING.md](../RELEASING.md).

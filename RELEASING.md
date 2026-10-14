@@ -1,5 +1,15 @@
 # Release procedure
 
+**Current policy:** DeviceEQ releases are free, ad-hoc signed builds without Apple notarization. A normal release is:
+
+```sh
+./build.sh && ./Tests/verify.sh
+./Scripts/package-release.sh --local
+gh release create vX.Y.Z dist/X.Y.Z/DeviceEQ-X.Y.Z-local.zip dist/X.Y.Z/SHA256SUMS-local.txt --title "DeviceEQ X.Y.Z" --generate-notes
+```
+
+The notarization sections below are optional and need a paid Apple Developer Program membership.
+
 ## One-time notarization setup (maintainer, about 10 minutes)
 
 You need a paid Apple Developer Program membership. These steps use your own Apple credentials, so run them yourself; never paste passwords or certificates into issues, chats or the repository.
