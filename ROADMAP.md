@@ -3,7 +3,7 @@
 DeviceEQ stays a **lightweight, audio-only parametric EQ**. Per-app mixing, volume boost, spatial effects and networking are deliberately out of scope.
 
 ## Next
-- Developer ID signing and notarization, then regular (non-pre-release) downloads, a DMG and a Homebrew cask
+- Notarization is deferred: releases stay free, ad-hoc signed downloads (the README explains the one-time Open Anyway step). The release script is ready if that changes.
 - Screenshots and a short demo GIF in the README
 - Universal (Intel + Apple Silicon) builds: `ARCHS="arm64 x86_64" ./build.sh` works and the DSP/model tests pass under Rosetta; needs testing on a real Intel Mac before release
 
