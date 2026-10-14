@@ -35,7 +35,7 @@ DeviceEQ gives each of your Mac's outputs its own parametric equalizer. Enable E
 
 1. Download `DeviceEQ-<version>-local.zip` from [Releases](../../releases) and unzip it.
 2. Move **DeviceEQ.app** to Applications.
-3. The build is ad-hoc signed and not notarized yet, so on first launch right-click the app and choose **Open**.
+3. The app isn't notarized by Apple, so macOS blocks the first launch. Open it once, click **Done**, then go to **System Settings → Privacy & Security**, scroll down and click **Open Anyway** next to DeviceEQ. (On macOS 14, right-click the app and choose **Open** instead.)
 4. Grant system-audio permission when macOS asks. It is only used to process outputs you enable.
 
 ## Quick start
