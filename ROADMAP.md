@@ -13,4 +13,4 @@ DeviceEQ stays a **lightweight, audio-only parametric EQ**. Per-app mixing, volu
 - Sleep/wake, sample-rate changes, Bluetooth reconnects, USB DACs
 
 ## Good first issues
-See the issues labelled `good first issue`.
+See the issues labelled `good first issue`, and [docs/QA.md](docs/QA.md) for hands-on test steps.

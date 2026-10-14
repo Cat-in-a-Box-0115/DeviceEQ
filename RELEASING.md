@@ -11,7 +11,11 @@ You need a paid Apple Developer Program membership. These steps use your own App
    xcrun notarytool store-credentials deviceeq-notary --apple-id YOU@EXAMPLE.COM --team-id TEAMID
    ```
    It prompts for the app-specific password and saves it under the profile name `deviceeq-notary`.
-4. Each release then uses `SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" ./build.sh` and `--keychain-profile deviceeq-notary` in step 3 below.
+4. Each release is then one command, which builds, tests, signs, notarizes, staples and packages (it does not upload):
+   ```sh
+   SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" ./Scripts/notarize-release.sh
+   ```
+   It prints the `gh release create` command to publish once you've tested the ZIP. The manual steps below describe what it does.
 
 ## Each release
 
