@@ -1,0 +1,24 @@
+build/
+build.noindex/
+*.app/
+*.app.backup.*/
+*.zip
+*.dmg
+*.dSYM/
+.DS_Store
+*.p12
+*.mobileprovision
+.env*
+!*.example
+Tests/Audio/Evidence/
+profiles.json
+
+dist/
+
+# Xcode / Swift
+xcuserdata/
+*.xcuserstate
+DerivedData/
+.build/
+.swiftpm/
+*.xcworkspace/xcuserdata/

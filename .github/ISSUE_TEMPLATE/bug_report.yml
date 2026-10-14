@@ -1,0 +1,26 @@
+name: Bug report
+description: Report a reproducible DeviceEQ issue
+body:
+  - type: input
+    id: version
+    attributes:
+      label: DeviceEQ version and macOS version
+    validations:
+      required: true
+  - type: input
+    id: output
+    attributes:
+      label: Output type
+      description: Built-in speakers, Bluetooth stereo, USB DAC, or other. No serial numbers or device identifiers needed.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include expected and actual behavior, EQ status, and whether the issue also occurs with EQ off.
+    validations:
+      required: true
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Optional screenshots or redacted diagnostics
+      description: Remove personal device identifiers. Do not upload audio recordings or full profile backups.

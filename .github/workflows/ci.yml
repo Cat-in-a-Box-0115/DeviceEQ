@@ -1,0 +1,13 @@
+name: macOS build and tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: ./build.sh
+      - name: Verify DSP and imports
+        run: ./Tests/verify.sh
