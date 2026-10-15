@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Import Equalizer APO presets saved as UTF-16 (Windows Notepad "Unicode"), and show a clear message for other encodings.
+- Accept extra spaces in `Channel: L R` lines.
+
 ## 0.4.8
 
 - Remove the five-band shortcut and simplify the editor action row.

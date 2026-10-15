@@ -540,7 +540,7 @@ func configFor(_ p: DeviceProfile, rate: Double) -> DEQConfig {
     }
   }
   @discardableResult func importPreset(at url: URL) throws -> Int {
-    let parsed = try parseAPO(String(contentsOf: url, encoding: .utf8))
+    let parsed = try parseAPO(readPresetText(Data(contentsOf: url)))
     var candidate = current
     candidate.bands = parsed.bands.map {
       Band(type: $0.type, frequency: $0.frequency, gain: $0.gain, q: $0.q,

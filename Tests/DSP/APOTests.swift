@@ -17,6 +17,14 @@ import Foundation
   assert(squig.bands.count == 9 && squig.preamp == -5)
   assert(squig.bands[5].frequency == 3000 && squig.bands[5].gain == 4)
   do { _ = try parseAPO("Filter 1: ON PK Fc 0 Hz Gain 0 dB Q 0"); fatalError("Accepted invalid active row") } catch {}
-  print("APO tests passed: AutoEq format, shelf Q/slope/corner conversions, channel/OFF roundtrip, strict errors.")
+  let sample = "Preamp: -3 dB\r\nFilter 1: ON PK Fc 1000 Hz Gain 2 dB Q 1\r\n"
+  for data in [Data([0xEF, 0xBB, 0xBF]) + sample.data(using: .utf8)!, Data([0xFF, 0xFE]) + sample.data(using: .utf16LittleEndian)!, Data([0xFE, 0xFF]) + sample.data(using: .utf16BigEndian)!] {
+    let decoded = try parseAPO(readPresetText(data))
+    assert(decoded.bands.count == 1 && decoded.preamp == -3)
+  }
+  do { _ = try readPresetText(Data([0xC3, 0x28])); fatalError("Accepted invalid text encoding") } catch {}
+  let spaced = try parseAPO("Channel:  L   R\nFilter: ON PK Fc 1000 Hz Gain 1 dB Q 1")
+  assert(spaced.bands[0].channel == "both")
+  print("APO tests passed: AutoEq format, shelf Q/slope/corner conversions, channel/OFF roundtrip, strict errors, UTF-8/UTF-16 decoding.")
  }
 }
