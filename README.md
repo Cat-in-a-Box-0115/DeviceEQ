@@ -29,6 +29,12 @@ DeviceEQ gives each of your Mac's outputs its own parametric equalizer. Enable E
   <img alt="DeviceEQ editor with a six-band headphone correction" src="docs/screenshots/editor-light.png">
 </picture>
 
+<details><summary>Animated demo</summary>
+
+![Switching outputs, adding bands and adjusting a peak](docs/screenshots/demo.gif)
+
+</details>
+
 <sub>Demo data. The status badge reads "EQ off" because screenshots are rendered without a live audio route.</sub>
 
 ## Install
