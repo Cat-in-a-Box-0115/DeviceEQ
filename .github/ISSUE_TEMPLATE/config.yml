@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security issue
+    url: https://github.com/Cat-in-a-Box-0115/DeviceEQ/security/advisories/new
+    about: Report vulnerabilities privately instead of opening a public issue.

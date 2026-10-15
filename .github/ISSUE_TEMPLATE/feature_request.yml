@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest an improvement to DeviceEQ
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: DeviceEQ aims to stay a lightweight, audio-only parametric EQ. Per-app mixing, volume boost, spatial effects and networking are out of scope (see ROADMAP.md).
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the problem or workflow, not just the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Suggested change
+  - type: input
+    id: setup
+    attributes:
+      label: Your setup (optional)
+      description: macOS version and output type, e.g. USB DAC, AirPods.
