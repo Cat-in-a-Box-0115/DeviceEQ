@@ -19,9 +19,11 @@ struct APOError: LocalizedError { let message: String; var errorDescription: Str
 // is deliberately rejected instead of applying an approximate conversion.
 // Equalizer APO configs saved by Windows Notepad as "Unicode" are UTF-16 with a byte-order mark.
 func readPresetText(_ data: Data) throws -> String {
+    // Some Foundation versions keep the byte-order mark as U+FEFF, which would corrupt the first directive.
+    func dropBOM(_ text: String) -> String { text.hasPrefix("\u{FEFF}") ? String(text.dropFirst()) : text }
     let bytes = [UInt8](data.prefix(2))
-    if bytes == [0xFF, 0xFE] || bytes == [0xFE, 0xFF], let text = String(data: data, encoding: .utf16) { return text }
-    if let text = String(data: data, encoding: .utf8) { return text }
+    if bytes == [0xFF, 0xFE] || bytes == [0xFE, 0xFF], let text = String(data: data, encoding: .utf16) { return dropBOM(text) }
+    if let text = String(data: data, encoding: .utf8) { return dropBOM(text) }
     throw APOError(message: "The preset is not UTF-8 or UTF-16 text. Re-save it as UTF-8 and try again.")
 }
 
