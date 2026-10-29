@@ -15,6 +15,7 @@ struct ContentView: View {
   @State private var guideStep = 0
   @State private var pendingUpdate: String?
   @State private var pendingDelete: Preset?
+  @State private var pendingForget: DeviceProfile?
   var body: some View {
     NavigationSplitView(columnVisibility: $columnVisibility) {
       List(selection: $store.selectedUID) {
@@ -39,7 +40,10 @@ struct ContentView: View {
           ForEach(
             store.library.profiles.values.filter { p in !store.physical.contains { $0.uid == p.uid }
             }.sorted { $0.deviceName < $1.deviceName }, id: \.uid
-          ) { p in Text(p.deviceName).foregroundStyle(.secondary).tag(p.uid) }
+          ) { p in
+            Text(p.deviceName).foregroundStyle(.secondary).tag(p.uid)
+              .contextMenu { Button("Forget Device…", role: .destructive) { pendingForget = p } }
+          }
         }
       }.navigationTitle("DeviceEQ").frame(minWidth: 220).help("Choose output to edit").tourTarget(.devices)
     } detail: {
@@ -78,6 +82,13 @@ struct ContentView: View {
           pendingDelete = nil
         }
       } message: { preset in Text("Delete “\(preset.name)”? Current EQ keeps playing. Undo can restore the profile.") }
+      .alert("Forget this device?", isPresented: Binding(get: { pendingForget != nil }, set: { if !$0 { pendingForget = nil } }), presenting: pendingForget) { profile in
+        Button("Cancel", role: .cancel) { pendingForget = nil }
+        Button("Forget", role: .destructive) {
+          store.forgetDevice(uid: profile.uid)
+          pendingForget = nil
+        }
+      } message: { profile in Text("Remove “\(profile.deviceName)” and its saved EQ and profiles from DeviceEQ? This can’t be undone. If it connects again, it starts with a flat EQ.") }
       .overlayPreferenceValue(TourAnchors.self) { anchors in
         GeometryReader { geometry in
           if showingGuide {
@@ -92,7 +103,7 @@ struct ContentView: View {
       }
       .onAppear { if !AppPreferences.shared.guideCompleted { startTour() } }
       .onReceive(NotificationCenter.default.publisher(for: .showDeviceEQGuide)) { _ in startTour() }
-      .onChange(of: store.selectedUID) { _, _ in presetName = ""; showingProfiles = false; pendingUpdate = nil; pendingDelete = nil; store.selectedBand = nil }
+      .onChange(of: store.selectedUID) { _, _ in presetName = ""; showingProfiles = false; pendingUpdate = nil; pendingDelete = nil; pendingForget = nil; store.selectedBand = nil }
       .toolbar {
         ToolbarItem(placement: .primaryAction) {
           SettingsLink { Image(systemName: "gearshape") }.help("Settings").accessibilityLabel("Settings")
@@ -129,6 +140,10 @@ struct ContentView: View {
           get: { store.current.routeEnabled },
           set: { value in if value != store.current.routeEnabled { store.toggleRoute() } }
         )).help("Enable EQ for this output").fixedSize().disabled(store.selectedUID.isEmpty || !store.physical.contains { $0.uid == store.selectedUID })
+        if let saved = store.library.profiles[store.selectedUID], !store.physical.contains(where: { $0.uid == saved.uid }) {
+          Button("Forget Device…", role: .destructive) { pendingForget = saved }
+            .help("Remove this disconnected device and its saved settings")
+        }
 
       }
     }

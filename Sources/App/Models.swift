@@ -608,6 +608,21 @@ func configFor(_ p: DeviceProfile, rate: Double) -> DEQConfig {
       if $0.activePresetID == id { $0.activePresetID = nil }
     }
   }
+  /// Removes a disconnected output's saved settings. Connected outputs are recreated on the next refresh, so they stay.
+  func forgetDevice(uid: String) {
+    guard !physical.contains(where: { $0.uid == uid }), library.profiles[uid] != nil else { return }
+    if let route = routes.removeValue(forKey: uid) { destroyRoute(route) }
+    let name = library.profiles[uid]?.deviceName ?? "Device"
+    library.profiles.removeValue(forKey: uid)
+    history.removeValue(forKey: uid)
+    redoHistory.removeValue(forKey: uid)
+    stats.removeValue(forKey: uid)
+    pendingUpdates.remove(uid)
+    failedRouteState.removeValue(forKey: uid)
+    if selectedUID == uid { selectedUID = physical.first?.uid ?? "" }
+    message = "Forgot \(name). It starts with a flat EQ if it connects again."
+    save()
+  }
   func showProfilesInFinder() {
     if !FileManager.default.fileExists(atPath: storage.path) { save() }
     guard FileManager.default.fileExists(atPath: storage.path) else { return }
