@@ -4,6 +4,7 @@
 
 - Import Equalizer APO presets saved as UTF-16 (Windows Notepad "Unicode"), and show a clear message for other encodings.
 - Accept extra spaces in `Channel: L R` lines.
+- Forget a saved, disconnected device from the sidebar (right-click) or its header, removing its EQ and profiles.
 
 ## 0.4.8
 

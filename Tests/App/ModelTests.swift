@@ -154,6 +154,14 @@ import Foundation
     let cleaned = cleanedReload.library.profiles[legacy.uid]!
     assert(cleaned.presets.count == 4 && Set(cleaned.presets.map { presetNameKey($0.name) }).count == 4)
     assert(cleaned.name == "Unsaved imported EQ" && cleaned.activePresetID == active.id)
-    print("Model regression checks passed: enable/bypass, Undo/Redo routing isolation, rapid toggle intent, named-profile replacement, active profile and reload. No audio capture or personal profiles used.")
+    store.forgetDevice(uid: uid)
+    assert(store.library.profiles[uid] != nil, "Connected outputs must not be forgotten")
+    store.library.profiles["old-headphones"] = DeviceProfile(uid: "old-headphones", deviceName: "Old headphones")
+    store.selectedUID = "old-headphones"
+    store.forgetDevice(uid: "old-headphones")
+    assert(store.library.profiles["old-headphones"] == nil && store.selectedUID == uid, "Forgetting a disconnected output must remove it and select a connected one")
+    let forgotReload = Store(storageURL: folder.appendingPathComponent("profiles.json"), observeAudio: false)
+    assert(forgotReload.library.profiles["old-headphones"] == nil, "Forgetting must persist")
+    print("Model regression checks passed: enable/bypass, Undo/Redo routing isolation, rapid toggle intent, named-profile replacement, active profile and reload, forgetting disconnected outputs. No audio capture or personal profiles used.")
   }
 }
